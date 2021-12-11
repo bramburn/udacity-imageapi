@@ -4,25 +4,28 @@
   "description": "Image API for Udacity",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine --config=jasmine.json",
+    "jasmine": "jasmine --config=spec/support/jasmine.json",
+    "test": "yarn build && yarn jasmine",
     "lint": "npx eslint src/",
-    "build": "tsc"
+    "build": "tsc -p ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/express": "^4.17.13",
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/jasmine": "^3.10.2",
+
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.3.0",
     "jasmine": "^3.10.0",
     "jasmine-spec-reporter": "^7.0.0",
-    "jasmine-ts": "^0.4.0",
+
     "node-ts": "^5.1.2",
     "prettier": "^2.5.1",
     "ts-node": "^10.4.0",

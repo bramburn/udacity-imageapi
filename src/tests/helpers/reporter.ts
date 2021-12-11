@@ -1,4 +1,3 @@
-import * as jasmine from "jasmine";
 import {DisplayProcessor, SpecReporter, StacktraceOption} from "jasmine-spec-reporter";
 import SuiteInfo = jasmine.SuiteInfo;
 
