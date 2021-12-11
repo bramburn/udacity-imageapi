@@ -1,5 +1,19 @@
-import myFunc from '../index';
+import request from "supertest"
+import app from "../index"
 
-it('expect myFunc(5) to equal 25', () => {
-    expect(myFunc(5)).toEqual(25);
-});
+export const thrownError = function (err, res) {
+    if (err) throw err;
+}
+
+describe("server basic check", () => {
+    it("test home api default get", () => {
+        request(app)
+            .get("/")
+            .set('Accept', 'application/json')
+            .expect('Content-Type', 'application/json; charset=utf-8')
+            .end(thrownError);
+    })
+
+})
+
+//

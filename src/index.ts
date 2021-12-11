@@ -1,19 +1,19 @@
-// import express from 'express'
-// import {Request,Response} from "express";
-//
-// const app = express();
-// const port = 3000
-//
-// app.get("/",(req:Request,res:Response)=>{
-//
-//     res.send("test")
-// })
-//
-// app.listen(port, () => {
-//     console.log(`Example app listening at http://localhost:${port}`)
-// })
-const myFunc = (num: number): number => {
-    return num * num;
-};
+import express from 'express'
+import {Request,Response} from "express";
 
-export default myFunc;
+const app = express();
+const port = 3000
+
+app.get("/",(req:Request,res:Response)=>{
+
+    res.json({
+        "status":"ok",
+        "message":"you need to "
+    })
+})
+
+app.listen(port, () => {
+    console.log(`App listening at http://localhost:${port}`)
+})
+
+export default app
