@@ -7,13 +7,16 @@
     "jasmine": "jasmine --config=spec/support/jasmine.json",
     "test": "yarn build && yarn jasmine",
     "lint": "npx eslint src/",
+    "dev": "yarn build && nodemon ./dist",
     "build": "tsc -p ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nodemon": "^2.0.15",
+    "sharp": "^0.29.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",

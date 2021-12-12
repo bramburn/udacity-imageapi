@@ -3,7 +3,7 @@ module.exports = {
         "browser": true,
         "es2021": true
     },
-    ignorePatterns: ["node_modules","build"],
+    ignorePatterns: ["node_modules", "build"],
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
@@ -19,5 +19,6 @@ module.exports = {
 
     ],
     "rules": {
+        semi: ["error", "never"]
     },
-};
+}
