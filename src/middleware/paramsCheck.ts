@@ -1,12 +1,15 @@
-import {NextFunction, Request, Response} from "express"
-import Path from "path"
+import { NextFunction, Request, Response } from 'express'
+import Path from 'path'
 
 export const errorImage = () => {
-    return Path.join(__dirname, "../", "images", "Error.jpg")
+    return Path.join(__dirname, '../', 'images', 'Error.jpg')
 }
 
-
-export default async function (req: Request, res: Response, next: NextFunction) {
+export default async function (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
     const width = req.query.w
     const height = req.query.h
 
