@@ -83,7 +83,6 @@ Available image to test:
 |------------|-------------|
 | `<width>`  |  integer greater than 0    |
 | `<height>` |  integer greater than 0    |
-|            |             |
 
 # Commands
 
