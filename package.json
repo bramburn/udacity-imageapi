@@ -5,10 +5,13 @@
   "main": "index.js",
   "scripts": {
     "jasmine": "jasmine --config=spec/support/jasmine.json",
-    "test": "yarn build && yarn jasmine",
+    "test": "npm run build && jasmine",
     "lint": "npx eslint src/",
-    "dev": "yarn build && nodemon ./dist",
-    "build": "tsc -p ."
+    "dev": "nodemon ./src/index.ts",
+    "serve": "npm run build && nodemon ./dist/index.js",
+    "build": "npm run clean && tsc -p . && npm run copy-files",
+    "clean": "rimraf dist",
+    "copy-files": "copyfiles -u 1 src/**/*.jpg dist/"
   },
   "keywords": [],
   "author": "",
@@ -23,12 +26,14 @@
     "@types/jasmine": "^3.10.2",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
+    "copyfiles": "^2.4.1",
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.3.0",
     "jasmine": "^3.10.0",
     "jasmine-spec-reporter": "^7.0.0",
     "node-ts": "^5.1.2",
     "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
     "supertest": "^6.1.6",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.3"

@@ -7,9 +7,8 @@ const request = supertest(app)
 
 describe("server basic check", () => {
     it("test home api default get", async (done) => {
-        const response: Response = await request.get("/").set('Accept', 'application/json')
+        const response: Response = await request.get("/")
         expect(response.status).toBe(200)
-        expect('Content-Type').toBe('application/json')
 
         done()
 
