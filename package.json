@@ -9,9 +9,9 @@
     "lint": "npx eslint src/",
     "prettier": "npx prettier --write ./src",
     "check": "npx prettier --check ./src",
-    "dev": "nodemon ./src/index.ts",
+    "dev": "nodemon ./src/index.ts --trace-warnings",
     "serve": "npm run build && nodemon ./dist/index.js",
-    "build": "npm run clean && tsc -p . && npm run copy-files",
+    "build": "npm run prettier && npm run clean && tsc -p . && npm run copy-files",
     "clean": "rimraf dist",
     "copy-files": "copyfiles -u 1 src/**/*.jpg dist/"
   },

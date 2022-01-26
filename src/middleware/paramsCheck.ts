@@ -1,9 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import Path from 'path'
-
-export const errorImage = ():string => {
-    return Path.join(__dirname, '../', 'images', 'Error.jpg')
-}
+import { errorImage } from '../helpers/errorHandlers'
 
 export default async function (
     req: Request,

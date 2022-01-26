@@ -1,6 +1,6 @@
 import { Response, Request, Router } from 'express'
 import ParamsCheck from './middleware/paramsCheck'
-import sharp from 'Sharp'
+import { ImageClass } from './helpers/imageClass'
 
 /*
  * @method placeHolderRouter
@@ -15,36 +15,31 @@ import sharp from 'Sharp'
  *
  * @return express.router
  * */
-export const placeHolderRouter = ():Router => {
-    const router = Router()
 
-    //add a basic middleware for all param checks
-    router.use(ParamsCheck)
+const router = Router()
 
-    router.get('/', async (req: Request, res: Response) => {
-        const width = parseInt(<string>req.query.w)
-        const height = parseInt(<string>req.query.h)
+//add a basic middleware for all param checks
+router.use(ParamsCheck)
 
-        const data = await sharp({
-            create: {
-                width,
-                height,
-                channels: 4,
-                background: { r: 255, g: 0, b: 0, alpha: 0.5 },
-            },
-        })
-            .jpeg({ mozjpeg: true })
-            .toBuffer()
+router.get('/', async (req: Request, res: Response): Promise<void> => {
+    const width = parseInt(<string>req.query.w)
+    const height = parseInt(<string>req.query.h)
 
-        const img = Buffer.from(data, 'base64')
+    try {
+        const imageClass = new ImageClass()
+        const img = await imageClass.dynamicImage(width, height)
 
         res.writeHead(200, {
             'Content-Type': 'image/jpeg',
             'Content-Length': img.length,
         })
 
-        return res.end(img)
-    })
+        res.end(img)
+        return
+    } catch {
+        res.status(500).end()
+        return
+    }
+})
 
-    return router
-}
+export const route = router

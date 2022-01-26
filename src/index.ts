@@ -1,24 +1,22 @@
 import express from 'express'
 import { Request, Response } from 'express'
-import { placeHolderRouter } from './placeHolder'
-import { imageResizerRouter } from './resizerApi'
+import { route as placeHolderRoute } from './placeHolder'
+import { route as imageApiRoute } from './resizerApi'
 
 // init express and set port
 const app = express()
 const port = 3000
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/', (req: Request, res: Response): void => {
     res.json({
         status: 'ok',
         message: 'All good',
     })
 })
 
-const placeHolderApi = placeHolderRouter()
-const imageApi = imageResizerRouter()
 //router for placeholder
-app.use('/api/placeholder', placeHolderApi)
-app.use('/api/images', imageApi)
+app.use('/api/placeholder', placeHolderRoute)
+app.use('/api/images', imageApiRoute)
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`)
