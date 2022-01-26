@@ -74,8 +74,9 @@ Available image to test:
   | [500x500](http://localhost:3000/api/images/santamonica.jpg/500/500/)
 
 
-4) You can also use a place holder using the following api endpoint. This will generate a red image with the desired
-   width and height. This is generated using Sharp and is not cached. It is recommended not to use on public sites.
+4) You can also use a placeholder using the following api endpoint. This will generate a red image with the desired
+   width and height. This is generated using Sharp and is not cached. It is not recommended using this feature on live
+   sites.
 
 `http://localhost:3000/api/placeholder?w=<width>&h=<height>`
 
