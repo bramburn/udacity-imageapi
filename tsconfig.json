@@ -13,7 +13,8 @@
     /* Ensure that casing is correct in imports. */
     "strict": true,
     "noImplicitAny": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "typedef": [ true, "call-signature", "arrow-call-signature" ]
   },
   "exclude": [
     "node_modules",

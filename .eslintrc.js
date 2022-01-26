@@ -19,6 +19,7 @@ module.exports = {
 
     ],
     "rules": {
-        semi: ["error", "never"]
+        semi: ["error", "never"],
+        "@typescript-eslint/explicit-function-return-type": ["error"]
     },
 }
