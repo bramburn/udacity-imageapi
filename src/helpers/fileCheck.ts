@@ -5,7 +5,7 @@ const { promises: fs } = require('fs')
  * @brief checks if a file exists or not
  * @return boolean
  * */
-export async function fileCheckExists(path) {
+export async function fileCheckExists(path):Promise<boolean> {
     try {
         await fs.access(path)
         return true

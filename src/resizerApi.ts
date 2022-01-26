@@ -1,11 +1,11 @@
 /*
  * This is a file that returns an app router
  * */
-import { Request, Response, Router as expressRouter } from 'express'
+import {Request, Response, Router} from 'express'
 import sharp from 'sharp'
 import Path from 'path'
-import { errorImage } from './middleware/paramsCheck'
-import { fileCheckExists } from './helpers/fileCheck'
+import {errorImage} from './middleware/paramsCheck'
+import {fileCheckExists} from './helpers/fileCheck'
 
 /*
  * @method imageResizerRouter
@@ -13,13 +13,13 @@ import { fileCheckExists } from './helpers/fileCheck'
  * You can add middlewares to it if needed to check if its authenticated, etc...
  * But this is out of the scope of this assignment
  * */
-export const imageResizerRouter = () => {
-    const router = expressRouter()
+export const imageResizerRouter = (): Router => {
+    const router = Router()
 
     router.get(
         '/:image/:height/:width/',
         async (req: Request, res: Response) => {
-            const { image, height, width } = req.params
+            const {image, height, width} = req.params
 
             if (!image || !height || !width) {
                 console.error('no image or height or width provided')

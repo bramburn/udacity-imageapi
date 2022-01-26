@@ -15,7 +15,7 @@ import sharp from 'Sharp'
  *
  * @return express.router
  * */
-export const placeHolderRouter = () => {
+export const placeHolderRouter = ():Router => {
     const router = Router()
 
     //add a basic middleware for all param checks
