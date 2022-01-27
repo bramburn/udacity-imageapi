@@ -7,12 +7,16 @@ import { fileCheckExists } from '../helpers/fileCheck'
 const fs = require('fs')
 const request = supertest(app)
 
-describe('Test the image function', () => {
-    beforeEach(function (done) {
-        setTimeout(function () {
+function testAsync(runAsync) {
+    return (done) => {
+        runAsync().then(done, (e) => {
+            fail(e)
             done()
-        }, 1000)
-    })
+        })
+    }
+}
+
+describe('Test the image function', () => {
     const im = new ImageClass()
     const sourcePath = Path.join(__dirname, '../', 'images')
     const cachedPath = Path.join(__dirname, '../', 'cached')
@@ -24,27 +28,26 @@ describe('Test the image function', () => {
         'palmtunnel.jpg',
         'santamonica.jpg',
     ]
-    it('Check if everything is generated', (done) => {
-        im.resizeImage(
-            Path.join(sourcePath, images[0]),
-            finalPath,
-            100,
-            100
-        ).then(() => {
-            const d = fileCheckExists(finalPath)
-                .then(() => true)
-                .catch(() => false)
-            expect(d).toBeTrue()
+    it(
+        'Check if everything is generated',
+        testAsync(async function () {
+            await im.resizeImage(
+                Path.join(sourcePath, images[0]),
+                finalPath,
+                100,
+                100
+            )
+            const d = await fileCheckExists(finalPath)
 
             fs.unlinkSync(finalPath)
+            expect(d).toBeTrue()
         })
-        done()
-    })
+    )
 })
 
 describe('Check if image resize works - ', () => {
     it('No Error when file exists and resized to 100', (done) => {
-        request.get('/api/images/fjord.jpg/100/100').then((res) => {
+        request.get('/api/images/fjord.jpg/100/100/').then((res) => {
             expect(res.status).toBe(200)
         })
         done()
