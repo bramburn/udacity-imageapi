@@ -1,26 +1,16 @@
 import app from '../index'
 import supertest from 'supertest'
-import { ImageClass } from '../helpers/imageClass'
+import { Response } from 'express'
+import { ImageResizeClass } from '../classes/imageResizeClass'
 import Path from 'path'
-import { fileCheckExists } from '../helpers/fileCheck'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const fs = require('fs')
+import * as fs from 'fs'
+
 const request = supertest(app)
 
-function testAsync(runAsync) {
-    return (done) => {
-        runAsync().then(done, (e) => {
-            fail(e)
-            done()
-        })
-    }
-}
-
-describe('Test the image function', () => {
-    const im = new ImageClass()
+describe('Check the image class ', async () => {
+    const im = new ImageResizeClass()
     const sourcePath = Path.join(__dirname, '../', 'images')
     const cachedPath = Path.join(__dirname, '../', 'cached')
-    const finalPath = Path.join(cachedPath, 'testImage.jpg')
     const images: string[] = [
         'encenadaport.jpg',
         'fjord.jpg',
@@ -28,72 +18,73 @@ describe('Test the image function', () => {
         'palmtunnel.jpg',
         'santamonica.jpg',
     ]
-    it(
-        'Check if everything is generated',
-        testAsync(async function () {
+
+    it('should build an image', async function (): Promise<void> {
+        const finalImage = Path.join(cachedPath, 'final.jpg')
+        try {
             await im.resizeImage(
                 Path.join(sourcePath, images[0]),
-                finalPath,
+                finalImage,
                 100,
                 100
             )
-            const d = await fileCheckExists(finalPath)
+        } catch {
+            fail()
+        }
 
-            fs.unlinkSync(finalPath)
-            expect(d).toBeTrue()
-        })
-    )
-})
-
-describe('Check if image resize works - ', () => {
-    it('No Error when file exists and resized to 100', (done) => {
-        request.get('/api/images/fjord.jpg/100/100/').then((res) => {
-            expect(res.status).toBe(200)
-        })
-        done()
+        fs.unlinkSync(finalImage)
     })
 
-    it('Error when file does not exists', (done) => {
-        request.get('/api/images/noexists.jpg/100/100/').then((res) => {
-            expect(res.status).toBe(404)
-        })
-        done()
+    it('should throw an error', async function (): Promise<void> {
+        const finalImage = Path.join(cachedPath, 'final.jpg')
+        try {
+            await im.resizeImage(
+                Path.join(sourcePath, 'noexists'),
+                finalImage,
+                100,
+                100
+            )
+        } catch (e) {
+            expect((e as { message; status }).message).toContain('missing')
+        }
     })
 })
 
-describe('Check Params of image submission -', () => {
-    it('Errors when no width or height provided', (done) => {
-        request.get('/api/images/noexists.jpg').then((res) => {
-            expect(res.status).toBe(404)
-        })
-        done()
+describe('Check the image resize api', async (): Promise<void> => {
+    it('Check if the basic image api works', async (): Promise<void> => {
+        const res: Response = await request.get(
+            '/api/image/?image=encenadaport.jpg&width=100&height=100'
+        )
+
+        expect(res.status).toBe(200)
     })
 
-    it('Errors when no height provided', (done) => {
-        request.get('/api/images/noexists.jpg//100/').then((res) => {
-            expect(res.status).toBe(404)
-        })
-        done()
+    it('Check if errors with nothing', async (): Promise<void> => {
+        const res: Response = await request.get('/api/image/')
+
+        expect(res.status).toBe(500)
     })
 
-    it('Errors when no width  provided', (done) => {
-        request.get('/api/images/noexists.jpg/100//').then((res) => {
-            expect(res.status).toBe(404)
-        })
-        done()
+    it('Check if errors in wrong query string', async (): Promise<void> => {
+        const res: Response = await request.get(
+            '/api/image/?image=hell&width=100&height=dd'
+        )
+
+        expect(res.status).toBe(500)
     })
 
-    it('Errors when height is not int provided', (done) => {
-        request.get('/api/images/noexists.jpg/hello/100').then((res) => {
-            expect(res.status).toBe(404)
-        })
-        done()
-    })
+    it('Check if errors in wrong query string and image name', async (): Promise<void> => {
+        const res: Response = await request.get(
+            '/api/image/?image=hell&width=d3&height=dd'
+        )
 
-    it('Errors when width is not int provided', (done) => {
-        request.get('/api/images/noexists.jpg/100/hello').then((res) => {
-            expect(res.status).toBe(404)
-        })
-        done()
+        expect(res.status).toBe(500)
+    })
+    it('Check if errors in wrong query string height', async (): Promise<void> => {
+        const res: Response = await request.get(
+            '/api/image/?image=encenadaport.jpg&width=100&height=dd'
+        )
+
+        expect(res.status).toBe(500)
     })
 })
