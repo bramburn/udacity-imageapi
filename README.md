@@ -43,7 +43,7 @@ Once you've installed the package you can run a local deploy by following the st
 2) Access the local page [http://localhost:3000](http://localhost:3000)
 3) Test the resize API using the following format:
 
-`http://localhost:3000/api/images/<image name>/<width>/<height>/`
+`http://localhost:3000/api/image/?image=<image name>&width=<width>&height=<height>`
 
 Replace:
 
@@ -53,37 +53,27 @@ Replace:
 | `<width>`      | integer greater than 0                                                                                                        |
 | `<height`>     | integer greater than 0                                                                                                        |
 
-http://localhost/api/images/santamonica.jpg/100/50/
+http://localhost/api/image/?image=santamonica.jpg&width=100&height=50
 
 Available image to test:
 
-- encenadaport.jpg [100x100](http://localhost:3000/api/images/encenadaport.jpg/100/100/)
-  | [200x100](http://localhost:3000/api/images/encenadaport.jpg/200/100/)
-  | [500x500](http://localhost:3000/api/images/encenadaport.jpg/500/500/)
-- fjord.jpg [100x100](http://localhost:3000/api/images/fjord.jpg/100/100/)
-  | [200x100](http://localhost:3000/api/images/fjord.jpg/200/100/)
-  | [500x500](http://localhost:3000/api/images/fjord.jpg/500/500/)
-- icelandwaterfall.jpg [100x100](http://localhost:3000/api/images/icelandwaterfall.jpg/100/100/)
-  | [200x100](http://localhost:3000/api/images/icelandwaterfall.jpg/200/100/)
-  | [500x500](http://localhost:3000/api/images/icelandwaterfall.jpg/500/500/)
-- palmtunnel.jpg [100x100](http://localhost:3000/api/images/palmtunnel.jpg/100/100/)
-  | [200x100](http://localhost:3000/api/images/palmtunnel.jpg/200/100/)
-  | [500x500](http://localhost:3000/api/images/palmtunnel.jpg/500/500/)
-- santamonica.jpg [100x100](http://localhost:3000/api/images/santamonica.jpg/100/100/)
-  | [200x100](http://localhost:3000/api/images/santamonica.jpg/200/100/)
-  | [500x500](http://localhost:3000/api/images/santamonica.jpg/500/500/)
+- encenadaport.jpg [100x100](http://localhost:3000/api/image/?image=encenadaport.jpg&width=100&height=100)
+  | [200x100](http://localhost:3000/api/image/?image=encenadaport.jpg&width=200&height=100)
+  | [500x500](http://localhost:3000/api/image/?image=encenadaport.jpg&width=500&height=500)
+- fjord.jpg [100x100](http://localhost:3000/api/image/?image=fjord.jpg&width=100&height=100)
+  | [200x100](http://localhost:3000/api/image/?image=fjord.jpg&width=200&height=100)
+  | [500x500](http://localhost:3000/api/image/?image=fjord.jpg&width=500&height=500)
+- icelandwaterfall.jpg [100x100](http://localhost:3000/api/image/?image=icelandwaterfall.jpg&width=100&height=100)
+  | [200x100](http://localhost:3000/api/image/?image=icelandwaterfall.jpg&width=200&height=100)
+  | [500x500](http://localhost:3000/api/image/?image=icelandwaterfall.jpg&width=500&height=500)
+- palmtunnel.jpg [100x100](http://localhost:3000/api/image/?image=palmtunnel.jpg&width=100&height=100)
+  | [200x100](http://localhost:3000/api/image/?image=palmtunnel.jpg&width=200&height=100)
+  | [500x500](http://localhost:3000/api/image/?image=palmtunnel.jpg&width=500&height=500)
+- santamonica.jpg [100x100](http://localhost:3000/api/image/?image=santamonica.jpg&width=100&height=100)
+  | [200x100](http://localhost:3000/api/image/?image=santamonica.jpg&width=200&height=100)
+  | [500x500](http://localhost:3000/api/image/?image=santamonica.jpg&width=500&height=500)
 
 
-4) You can also use a placeholder using the following api endpoint. This will generate a red image with the desired
-   width and height. This is generated using Sharp and is not cached. It is not recommended using this feature on live
-   sites.
-
-`http://localhost:3000/api/placeholder?w=<width>&h=<height>`
-
-| Code       | Description |
-|------------|-------------|
-| `<width>`  |  integer greater than 0    |
-| `<height>` |  integer greater than 0    |
 
 # Commands
 
