@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import { Router, Request,Response } from 'express'
 import paramsChecker from '../middleware/paramsChecker'
 import { fileCheckExists } from '../classes/fileCheckClass'
 import Path from 'path'
@@ -7,7 +7,7 @@ import { ImageResizeClass } from '../classes/imageResizeClass'
 const imageResizeRouter = Router()
 imageResizeRouter.use(paramsChecker)
 
-imageResizeRouter.get('/', async (req, res): Promise<void> => {
+imageResizeRouter.get('/', async (req:Request, res:Response): Promise<void> => {
     const imageFileName = <string>req.query.image
     const width = parseInt(<string>req.query.width)
     const height = parseInt(<string>req.query.height)
