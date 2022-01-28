@@ -3,4 +3,4 @@ build/
 dist/
 yarn-error.log
 
-src/cached/
+src/cached/**/*.jpg
